@@ -1,14 +1,15 @@
 package guru.springframework.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import guru.springframework.commands.ProductForm;
 import guru.springframework.converters.ProductFormToProduct;
 import guru.springframework.domain.Product;
 import guru.springframework.repositories.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by jt on 1/10/17.
@@ -16,7 +17,7 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    private ProductRepository productRepository;
+	private ProductRepository productRepository;
     private ProductFormToProduct productFormToProduct;
 
     @Autowired
@@ -35,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getById(Long id) {
-        return productRepository.findOne(id);
+        return productRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -46,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void delete(Long id) {
-        productRepository.delete(id);
+        productRepository.deleteById(id);
 
     }
 
